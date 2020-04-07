@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends Model
 {
-<<<<<<< HEAD
     /**
      * 与模型关联的表名
      *
@@ -28,8 +27,4 @@ class UserModel extends Model
      */
     protected $guarded = [];
 
-=======
-    //指派表名
-    protected $table="p_users";
->>>>>>> 22d05047ef4fdc9ce601241992e890c966837162
 }
