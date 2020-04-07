@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Blog用户登录</title>
+    <title>用户登录</title>
     <!-- meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
