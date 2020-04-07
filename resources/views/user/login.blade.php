@@ -46,7 +46,9 @@
         </div>
         <button type="submit">Login</button>
     </form>
-    <p class=" w3l-register-p">Don't have an account?<a href="/index/register/register.html" class="register"> Register</a></p>
+    <p class=" w3l-register-p">Don't have an account?<a href="{{url('/register')}}" class="register"> Register</a></p>
+    <p class=" w3l-register-p">Retrieve password！<a href="{{url('/find_pass')}}" class="register"> FindPass</a></p>
+    <p class=" w3l-register-p">Change Password！<a href="{{url('/change_pass')}}" class="register"> Change Password</a></p>
 </div>
 <footer>
     <p class="copyright-agileinfo"> &copy; Welcome to personal login</p>
