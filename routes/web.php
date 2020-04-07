@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login/login','UserController@login');                      //登录视图
+Route::post('/login/login_do','UserController@loginDo');                 //登录视图
