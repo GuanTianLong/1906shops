@@ -109,6 +109,11 @@ class UserController extends Controller
                 'pass' => $pass,
             ];
             $uid = UserModel::insertGetId($data);
+
+            //TODO 发送注册成功邮件通知
+            // sldkfjslkdjflskdf
+
+
             echo "<script>alert('注册成功');location.href='/login/login';</script>";
         }
     }
