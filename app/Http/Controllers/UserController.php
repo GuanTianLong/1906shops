@@ -171,5 +171,57 @@ class UserController extends Controller
             echo "<script>alert('密码重置链接已发送至".$email."');location.href='/login/login';</script>";
         }
     }
+
+    // 重置密码视图
+    public function resetpass1(Request $request)
+    {
+        //验证token
+        $token = $request->input('token');
+
+        if(empty($token)){
+            echo "<script>alert('您还没有授权,没有token');location.href='/login/login';</script>";
+        }
+
+        $data = [
+            'token' => $token
+        ];
+        return view('user.resetpass',$data);
+    }
+
+    // 重置密码
+    public function resetpass2(Request $request)
+    {
+        $pwd1 = $request->input('pwd1');
+        $pwd2 = $request->input('pwd2');
+        $resetToken = $request->input('resetToken');
+
+        if($pwd1 != $pwd2){
+            echo "<script>alert('密码与确认密码不一致');history.go(-1);</script>";
+        }
+
+        $user = FindPassModel::where(['token'=>$resetToken])->orderBy('id','desc')->first();
+        if(empty($resetToken)){
+            echo "<script>alert('您还没有授权,没有token');location.href='/login/login';</script>";
+        }
+
+        if($user->expire < time() ){
+            echo "<script>alert('token已过期');location.href='/login/login';</script>";
+        }
+
+        if($user->status==1){
+            echo "<script>alert('token已被使用');location.href='/login/login';</script>";
+        }
+
+        $uid = $user->uid;
+        $pwd = password_hash($pwd1,PASSWORD_BCRYPT);
+        // 修改密码
+        UserModel::where(['id'=>$uid])->update(['pass'=>$pwd]);
+
+        
+        FindpassModel::where(['token'=>$resetToken])->update(['status'=>1]);
+        echo "<script>alert('密码重置成功');location.href='/login/login';</script>";
+
+        
+    }
 }
 

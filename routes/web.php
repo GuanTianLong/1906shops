@@ -25,6 +25,11 @@ Route::get('/register','UserController@register'); //注册视图
 Route::post('/regDo','UserController@regDo'); //执行注册
 
 
-Route::get('/find_pass','UserController@findpass1');
-Route::post('/findPass','UserController@findpass2');
+Route::get('/findPass','UserController@findpass1');  //找回密码视图
+Route::post('/findPass','UserController@findpass2');  //发送邮件
+
+Route::get('/resetpass','UserController@resetpass1');  //重置密码视图
+Route::post('/resetpass','UserController@resetpass2');  //重置密码
+
+
 
