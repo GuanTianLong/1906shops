@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
 Route::get('/login/login','UserController@login');                      //登录视图
 Route::post('/login/login_do','UserController@loginDo');               //登录视图
 
@@ -34,9 +33,7 @@ Route::post('/resetpass','UserController@resetpass2');  //重置密码
 
 
 
-=======
 Route::prefix('/org')->group(function(){
     Route::any('/change_pass','OrgController@change_pass');  //注册页面
     Route::any('upd','OrgController@upd');  //注册方法
 });
->>>>>>> org
