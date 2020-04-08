@@ -163,6 +163,9 @@ class UserController extends Controller
                 //收件人数组
                 $to = [
                     'zhang2877503663@163.com',
+                    '848332992@qq.com',
+                    '2281401451@qq.com',
+                    '3228682711@qq.com'
                 ];
                 $message->to($to)->subject('重置密码');
             });
