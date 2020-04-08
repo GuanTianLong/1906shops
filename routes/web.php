@@ -23,6 +23,6 @@ Route::post('/login/login_do','UserController@loginDo');               //登录�
 Route::get('/register','UserController@register');                      //注册视图
 Route::post('/regDo','UserController@regDo');                           //注册编辑
 
-Route::get('/findPass','UserController@findpass1');
+Route::get('/find_pass','UserController@findpass1');
 Route::post('/findPass','UserController@findpass2');
 

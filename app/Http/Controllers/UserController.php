@@ -59,70 +59,59 @@ class UserController extends Controller
 
     }
 
-        //注册
-        public function register()
-        {
-            return view('user/create');
+     //注册
+     public function register()
+     {
+        return view('user/create');
+     }
+
+     //注册的编辑
+     public function regDo()
+     {
+        $post = request()->except('_token');
+        $user_name = request()->input('user_name');
+        //验空
+        if (empty($user_name)) {
+            echo "用户名不能为空";
+            die;
         }
-
-        //注册的编辑
-        public function regDo()
-        {
-            $post = request()->except('_token');
-            $user_name = request()->input('user_name');
-
-            //验空
-            if (empty($user_name)) {
-                echo "用户名不能为空";
-                die;
-            }
-
-            if (empty($post['email'])) {
-                echo "邮箱不能为空";
-                die;
-            }
-
-            if (empty($post['tel'])) {
-                echo "手机号不能为空";
-                die;
-            }
-
-            if (empty($post['pass'])) {
-                echo "密码不能为空";
-                die;
-            }
-
-            if (empty($post['pass1'])) {
-                echo "确认密码不能为空";
-                die;
-            }
-
-            //判断密码
-            $pass = request()->input('pass');
-            $pass1 = request()->input('pass1');
-            if ($pass != $pass1) {
-                echo "密码不正确 请重新输入";
-                die;
-            }
-
-            //密码加密
-            $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
-
-            //入库
-            $data = [
-                'user_name' => $user_name,
-                'tel' => $post['tel'],
-                'email' => $post['email'],
-                'pass' => $pass,
-            ];
-            $uid = UserModel::insertGetId($data);
-
-            //TODO 发送注册成功邮件通知
-            // sldkfjslkdjflskdf
-
-
-            echo "<script>alert('注册成功');location.href='/login/login';</script>";
+        if (empty($post['email'])) {
+            echo "邮箱不能为空";
+            die;
         }
+        if (empty($post['tel'])) {
+            echo "手机号不能为空";
+            die;
+        }
+        if (empty($post['pass'])) {
+            echo "密码不能为空";
+            die;
+        }
+        if (empty($post['pass1'])) {
+            echo "确认密码不能为空";
+            die;
+        }
+        //判断密码
+        $pass = request()->input('pass');
+        $pass1 = request()->input('pass1');
+        if ($pass != $pass1) {
+            echo "密码不正确 请重新输入";
+            die;
+        }
+        //密码加密
+        $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
+        //入库
+        $data = [
+            'user_name' => $user_name,
+            'tel' => $post['tel'],
+            'email' => $post['email'],
+            'pass' => $pass,
+        ];
+        $uid = UserModel::insertGetId($data);
+        //TODO 发送注册成功邮件通知
+        // sldkfjslkdjflskdf
+        echo "<script>alert('注册成功');location.href='/login/login';</script>";
+     }
 
     public function findpass1()
     {
@@ -160,7 +149,7 @@ class UserController extends Controller
              });
 
             $email = $u->email;
-            echo "<script>alert('密码重置链接已发送至".$email."')</script>";
+            echo "<script>alert('密码重置链接已发送至".$email."');location.href='/login/login';</script>";
         }
     }
 }
