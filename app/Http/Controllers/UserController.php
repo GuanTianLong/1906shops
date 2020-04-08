@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\UserModel;                        //UserModel
 use Illuminate\Support\Facades\Hash;            //HASH
+use Illuminate\Support\Facades\Mail;            //Mail
+
 
 class UserController extends Controller
 {
@@ -46,6 +48,19 @@ class UserController extends Controller
             echo "密码有误";
             die;
         }
+
+        //登录成功----发送邮件
+        $url = [];
+        Mail::send('user.email',$url,function($message){
+            $to = [
+                '2281401451@qq.com'
+            ];
+
+            $message->to($to)->subject("登录成功");
+
+        });
+
+
 
         header('Refresh:2;url=/user/center');
         echo "登录成功，正在跳转至个人中心....";
