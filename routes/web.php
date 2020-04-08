@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/findPass','UserController@findpass1');
+Route::post('/findPass','UserController@findpass2');
