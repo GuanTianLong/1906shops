@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\UserModel;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -12,7 +14,7 @@ class UserController extends Controller
         return view('user/create');
     }
 
-    //注册的编辑
+    //执行注册
     public function regDo(){
         $post=request()->except('_token');
         $user_name=request()->input('user_name');
@@ -56,7 +58,19 @@ class UserController extends Controller
             'email'     =>$post['email'],
             'pass'      =>$pass,
         ];
+
+        //注册成功--发送邮件
+        $url=[];
+        Mail::send('email.create',$url,function($message){
+            $to=[
+                '848332992@qq.com'
+            ];
+            $message->to($to)->subject("注册成功");
+        });
+
         $uid=UserModel::insertGetId($data);
         echo "<script>alert('注册成功');location.href='/login/login';</script>";
+
+
     }
 }

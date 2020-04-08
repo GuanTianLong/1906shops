@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 //注册
 Route::get('/register','UserController@register'); //注册视图
-Route::post('/regDo','UserController@regDo'); //注册编辑
+Route::post('/regDo','UserController@regDo'); //执行注册
