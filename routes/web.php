@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/org')->group(function(){
+    Route::any('/change_pass','OrgController@change_pass');  //注册页面
+    Route::any('upd','OrgController@upd');  //注册方法
+});
