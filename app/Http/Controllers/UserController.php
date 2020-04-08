@@ -7,6 +7,7 @@ use App\Model\UserModel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;            //HASH
+use App\Model\FindPassModel;
 
 class UserController extends Controller
 {
@@ -62,69 +63,109 @@ class UserController extends Controller
             return view('user/create');
         }
 
-         //执行注册
-         public function regDo()
-         {
-             $post = request()->except('_token');
-             $user_name = request()->input('user_name');
 
-             //验空
-             if (empty($user_name)) {
-                 echo "用户名不能为空";
-                 die;
-             }
+        //执行注册
+        public function regDo()
+        {
+            $post = request()->except('_token');
+            $user_name = request()->input('user_name');
 
-             if (empty($post['email'])) {
-                 echo "邮箱不能为空";
-                 die;
-             }
+            //验空
+            if (empty($user_name)) {
+                echo "用户名不能为空";
+                die;
+            }
 
-             if (empty($post['tel'])) {
-                 echo "手机号不能为空";
-                 die;
-             }
+            if (empty($post['email'])) {
+                echo "邮箱不能为空";
+                die;
+            }
 
-             if (empty($post['pass'])) {
-                 echo "密码不能为空";
-                 die;
-             }
+            if (empty($post['tel'])) {
+                echo "手机号不能为空";
+                die;
+            }
 
-             if (empty($post['pass1'])) {
-                 echo "确认密码不能为空";
-                 die;
-             }
+            if (empty($post['pass'])) {
+                echo "密码不能为空";
+                die;
+            }
 
-             //判断密码
-             $pass = request()->input('pass');
-             $pass1 = request()->input('pass1');
-             if ($pass != $pass1) {
-                 echo "密码不正确 请重新输入";
-                 die;
-             }
+            if (empty($post['pass1'])) {
+                echo "确认密码不能为空";
+                die;
+            }
 
-             //密码加密
-             $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
+            //判断密码
+            $pass = request()->input('pass');
+            $pass1 = request()->input('pass1');
+            if ($pass != $pass1) {
+                echo "密码不正确 请重新输入";
+                die;
+            }
 
-             //入库
-             $data = [
-                 'user_name' => $user_name,
-                 'tel' => $post['tel'],
-                 'email' => $post['email'],
-                 'pass' => $pass,
-             ];
-             $uid = UserModel::insertGetId($data);
+            //密码加密
+            $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
 
-             //注册成功--发送邮件
-             $url = [];
-             Mail::send('email.create', $url, function ($message) {
-                 $to = [
-                     '848332992@qq.com'
-                 ];
-                 $message->to($to)->subject("注册成功");
+            //入库
+            $data = [
+                'user_name' => $user_name,
+                'tel' => $post['tel'],
+                'email' => $post['email'],
+                'pass' => $pass,
+            ];
+            $uid = UserModel::insertGetId($data);
+
+            //注册成功--发送邮件
+            $url = [];
+            Mail::send('email.create', $url, function ($message) {
+                $to = [
+                    '848332992@qq.com'
+                ];
+                $message->to($to)->subject("注册成功");
+            });
+
+            echo "<script>alert('注册成功');location.href='/login/login';</script>";
+        }
+
+    public function findpass1()
+    {
+        return view('user.findpass');
+    }
+
+    public function findpass2(Request $request)
+    {
+        $uname = $request->input('u');
+        $u = UserModel::where(['user_name'=>$uname])
+            ->orWhere(['email'=>$uname])
+            ->orWhere(['tel'=>$uname])
+            ->first();
+
+        // 给该用户发送重置密码邮件
+        if($u){
+            $token = Str::random(32);
+            $data = [
+                'uid'       => $u->id,
+                'token'     => $token,
+                'expire'    => time() + 300  //5分钟后失效
+            ];
+            FindPassModel::create($data);
+
+            // 密码重置链接
+            $link = [
+                'url'   => env('APP_URL'). '/resetpass?token='.$token
+            ];
+            Mail::send('email.findpass',$link,function($message){
+                //收件人数组
+                    $to = [
+                        'zhang2877503663@163.com',
+                    ];
+                    $message ->to($to)->subject('重置密码');
              });
 
-             echo "<script>alert('注册成功');location.href='/login/login';</script>";
-         }
-
-     }
+            $email = $u->email;
+            echo "<script>alert('密码重置链接已发送至".$email."')</script>";
+        }
+    }
+}
 

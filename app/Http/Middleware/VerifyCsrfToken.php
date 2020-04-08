@@ -12,8 +12,9 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+
         //
         '*',                    //对所有的请求不使用csrf
-
     ];
 }
+

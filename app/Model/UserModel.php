@@ -28,3 +28,4 @@ class UserModel extends Model
     protected $guarded = [];
 
 }
+
