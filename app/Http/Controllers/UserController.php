@@ -125,7 +125,7 @@ class UserController extends Controller
                 $message->to($to)->subject("注册成功");
             });
 
-            echo "<script>alert('注册成功');location.href='/login/login';</script>";
+            echo "<script>alert('注册成功');location.href='/login';</script>";
         }
 
     public function findpass1()
