@@ -47,7 +47,7 @@
         <button type="submit">Login</button>
     </form>
     <p class=" w3l-register-p">Don't have an account?<a href="{{url('/register')}}" class="register"> Register</a></p>
-    <p class=" w3l-register-p">Retrieve password！<a href="{{url('/findPass')}}" class="register"> FindPass</a></p>
+    <p class=" w3l-register-p">Retrieve password！<a href="{{url('/findpass')}}" class="register"> FindPass</a></p>
     <p class=" w3l-register-p">Change Password！<a href="{{url('/change_pass')}}" class="register"> Change Password</a></p>
 </div>
 <footer>

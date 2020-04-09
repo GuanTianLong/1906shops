@@ -27,7 +27,7 @@
 <body>
 <div class=" w3l-login-form">
     <h2>找回密码</h2>
-    <form action="/findPass" method="post">
+    <form action="/findpass" method="post">
         <div class=" w3l-form-group">
             <div class="group">
                 <i class="fas fa-user"></i>
