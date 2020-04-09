@@ -126,7 +126,7 @@ class UserController extends Controller
             ];
             $message->to($to)->subject("注册成功");
         });
-        echo "<script>alert('注册成功');location.href='/login/login';</script>";
+        echo "<script>alert('注册成功');location.href='/login';</script>";
     }
     
 
@@ -225,6 +225,54 @@ class UserController extends Controller
         echo "<script>alert('密码重置成功');location.href='/login/login';</script>";
 
         
+    }
+
+    public function userCenter()
+    {
+        echo "用户中心";
+    }
+
+    /**
+     * 修改密码 view
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function vChangePass()
+    {
+        // TODO 判断登录
+        return view('user.changepass');
+    }
+
+    /**
+     * 修改密码逻辑
+     */
+    public function changePass(){
+        //TODO fix bug
+
+        $post = request()->except('_token');
+        $oldpwd = $post['oldpwd'];
+        $newspwd = $post['newspwd'];
+        $newpwd = $post['newpwd'];
+        if(empty($oldpwd)){
+            echo "请输入当前密码";die;
+        }
+        if(empty($newpwd)){
+            echo "请输入新密码";die;
+        }
+        if(empty($newspwd)){
+            echo "请确认新密码";die;
+        }
+        if($oldpwd == $newpwd){
+            echo "新密码和当前使用密码不能一致";die;
+        }
+        if($newpwd != $newspwd){
+            echo "确认密码和最新密码不一致";die;
+        }
+        $where = [$oid =>$oid];
+        $res = $Org->where($where)->update($post);
+        if($res){
+            echo "密码修改成功";die;
+        }
+
     }
 }
 
