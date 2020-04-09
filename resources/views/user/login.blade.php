@@ -27,7 +27,7 @@
 <body>
 <div class=" w3l-login-form">
     <h2>Login Here</h2>
-    <form action="{{url('/login_do')}}" method="post">
+    <form action="{{url('/logindo')}}" method="post">
         <div class=" w3l-form-group">
             <div class="group">
                 <i class="fas fa-user"></i>
