@@ -131,13 +131,13 @@ class UserController extends Controller
     
 
     //找回密码视图
-    public function findpass1()
+    public function findPass1()
     {
         return view('user.findpass');
     }
 
     //执行找回密码
-    public function findpass2(Request $request)
+    public function findPass2(Request $request)
     {
         $uname = $request->input('u');
         $u = UserModel::where(['user_name' => $uname])
@@ -176,7 +176,7 @@ class UserController extends Controller
     }
 
     // 重置密码视图
-    public function resetpass1(Request $request)
+    public function resetPass1(Request $request)
     {
         //验证token
         $token = $request->input('token');
@@ -192,7 +192,7 @@ class UserController extends Controller
     }
 
     // 重置密码
-    public function resetpass2(Request $request)
+    public function resetPass2(Request $request)
     {
         $pwd1 = $request->input('pwd1');
         $pwd2 = $request->input('pwd2');
