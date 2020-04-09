@@ -171,7 +171,7 @@ class UserController extends Controller
             });
 
             $email = $u->email;
-            echo "<script>alert('密码重置链接已发送至".$email."');location.href='/login/login';</script>";
+            echo "<script>alert('密码重置链接已发送至".$email."');location.href='/login';</script>";
         }
     }
 
@@ -182,7 +182,7 @@ class UserController extends Controller
         $token = $request->input('token');
 
         if(empty($token)){
-            echo "<script>alert('您还没有授权,没有token');location.href='/login/login';</script>";
+            echo "<script>alert('您还没有授权,没有token');location.href='/login';</script>";
         }
 
         $data = [
@@ -204,15 +204,15 @@ class UserController extends Controller
 
         $user = FindPassModel::where(['token'=>$resetToken])->orderBy('id','desc')->first();
         if(empty($resetToken)){
-            echo "<script>alert('您还没有授权,没有token');location.href='/login/login';</script>";
+            echo "<script>alert('您还没有授权,没有token');location.href='/login';</script>";
         }
 
         if($user->expire < time() ){
-            echo "<script>alert('token已过期');location.href='/login/login';</script>";
+            echo "<script>alert('token已过期');location.href='/login';</script>";
         }
 
         if($user->status==1){
-            echo "<script>alert('token已被使用');location.href='/login/login';</script>";
+            echo "<script>alert('token已被使用');location.href='/login';</script>";
         }
 
         $uid = $user->uid;
@@ -222,7 +222,7 @@ class UserController extends Controller
 
         
         FindpassModel::where(['token'=>$resetToken])->update(['status'=>1]);
-        echo "<script>alert('密码重置成功');location.href='/login/login';</script>";
+        echo "<script>alert('密码重置成功');location.href='/login';</script>";
 
         
     }
