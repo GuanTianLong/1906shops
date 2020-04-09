@@ -62,6 +62,9 @@ class UserController extends Controller
 
         });
 
+        //登录成功，存入SESSION中
+        session(['user_name' => $user_info['user_name']]);
+
         header('Refresh:2;url=/user/center');
         echo "登录成功，正在跳转至个人中心....";
 
