@@ -22,7 +22,7 @@ Route::post('/login_do','UserController@loginDo');               //登录视图
 
 
 Route::get('/register','UserController@register'); //注册视图
-Route::post('/regDo','UserController@regDo'); //执行注册
+Route::post('/regdo','UserController@regDo'); //执行注册
 
 Route::get('/user/center','UserController@userCenter'); //用户中心
 

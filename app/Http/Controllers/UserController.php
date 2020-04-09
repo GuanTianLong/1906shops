@@ -88,6 +88,7 @@ class UserController extends Controller
             die;
         }
 
+<<<<<<< HEAD
         if (empty($post['tel'])) {
             echo "手机号不能为空";
             die;
@@ -107,6 +108,9 @@ class UserController extends Controller
         if ($pass != $pass1) {
             echo "密码不正确 请重新输入";
             die;
+=======
+            echo "<script>alert('注册成功');location.href='/login';</script>";
+>>>>>>> change-register
         }
         //密码加密
         $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
