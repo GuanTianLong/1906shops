@@ -12,7 +12,7 @@ use App\Model\FindPassModel;
 class UserController extends Controller
 {
     /**
-        *登录视图
+        *登录view
      */
     public function login()
     {
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         //登录成功----发送邮件
         $url = [];
-        Mail::send('user.email', $url, function ($message) {
+        Mail::send('email.email', $url, function ($message) {
             $to = [
                 '2281401451@qq.com'
             ];
@@ -65,6 +65,13 @@ class UserController extends Controller
         header('Refresh:2;url=/user/center');
         echo "登录成功，正在跳转至个人中心....";
 
+    }
+
+
+    //用户中心view
+    public function userCenter()
+    {
+        return view('user.center');
     }
 
     //注册视图
@@ -88,7 +95,6 @@ class UserController extends Controller
             die;
         }
 
-<<<<<<< HEAD
         if (empty($post['tel'])) {
             echo "手机号不能为空";
             die;
@@ -108,9 +114,6 @@ class UserController extends Controller
         if ($pass != $pass1) {
             echo "密码不正确 请重新输入";
             die;
-=======
-            echo "<script>alert('注册成功');location.href='/login';</script>";
->>>>>>> change-register
         }
         //密码加密
         $pass = password_hash($post['pass'], PASSWORD_BCRYPT);
@@ -231,13 +234,9 @@ class UserController extends Controller
         
     }
 
-    public function userCenter()
-    {
-        echo "用户中心";
-    }
 
     /**
-     * 修改密码 view
+        * 修改密码 view
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function vChangePass()
@@ -247,7 +246,7 @@ class UserController extends Controller
     }
 
     /**
-     * 修改密码逻辑
+        * 修改密码逻辑
      */
     public function changePass(){
         //TODO fix bug
