@@ -52,10 +52,16 @@ class UserController extends Controller
         }
 
         //登录成功----发送邮件
-        $url = [];
-        Mail::send('email.email', $url, function ($message) {
+        $data = [
+            'user_name' => $user_info['user_name'],
+            'time'      => date('Y-m-d H:i:s',time()),
+            'ip'        => $_SERVER['REMOTE_ADDR'],
+            'url'       => env('APP_URL'),
+        ];
+        Mail::send('email.email', $data, function ($message) use ($account) {
+            $user = UserModel::where(['tel' => $account])->orWhere(['email' => $account])->orWhere(['user_name' => $account])->first();
             $to = [
-                '2281401451@qq.com'
+                $user['email']
             ];
 
             $message->to($to)->subject("登录成功");
