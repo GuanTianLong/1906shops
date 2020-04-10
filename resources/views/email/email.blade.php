@@ -5,6 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-    <b style="color: darkturquoise">登录成功，欢迎来到蓝精灵小组</b>
+    <b style="color: darkturquoise">尊敬的用户：{{$user_name}}，您于{{$time}}登录到{{$url}}，客户端IP为：{{$ip}}</b>
 </body>
 </html>
