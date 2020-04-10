@@ -236,7 +236,27 @@ class UserController extends Controller
 
         
         FindpassModel::where(['token'=>$resetToken])->update(['status'=>1]);
-        echo "<script>alert('密码重置成功');location.href='/login';</script>";
+
+
+        $userInfo = FindPassModel::join('p_users','uid','=','p_users.id')->first();
+
+        $url = [
+            'user_name' => $userInfo->user_name,
+            'time'      => date('Y-m-d h:i:s'),
+            'ip'        => $userInfo->id
+        ];
+        Mail::send('email.resetpass', $url, function ($message) {
+            $to = [
+                'zhang2877503663@163.com',
+                '848332992@qq.com',
+                '2281401451@qq.com',
+                '3228682711@qq.com'
+            ];
+
+            $message->to($to)->subject("密码重置成功");
+
+        });
+        echo "<script>alert('密码重置成功,邮件已发送至您的邮箱请注意查收');location.href='/login';</script>";
 
         
     }
