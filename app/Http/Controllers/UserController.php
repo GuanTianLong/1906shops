@@ -129,10 +129,14 @@ class UserController extends Controller
         ];
         $uid = UserModel::insertGetId($data);
         //注册成功--发送邮件
-        $url = [];
-        Mail::send('email.create', $url, function ($message) {
+        $arr = [
+            'user_name' =>$post['user_name'],
+            'time'=>date('Y-m-d h:i:s',time()),
+            'url'       =>"注册成功"
+        ];
+        Mail::send('email.create', $arr, function($message) use($post){
             $to = [
-                '848332992@qq.com'
+                $post['email']
             ];
             $message->to($to)->subject("注册成功");
         });
