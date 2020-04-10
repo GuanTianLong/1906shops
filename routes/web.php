@@ -21,6 +21,7 @@ Route::get('/login','UserController@login');                     //登录view
 Route::post('/logindo','UserController@loginDo');               //登录视图
 
 Route::get('/user/center','UserController@userCenter');         //用户中心
+Route::post('/user/outlogin','UserController@outLogin');         //退出登录
 
 Route::get('/register','UserController@register');              //注册视图
 Route::post('/regdo','UserController@regDo');                   //执行注册

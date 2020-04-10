@@ -83,6 +83,15 @@ class UserController extends Controller
         return view('user.center');
     }
 
+    //点击退出登录
+    public function outLogin(Request $request){
+        //清除session
+        $request->session()->flush();
+        echo "<script>alert('退出成功，正在跳转至登录页...');location.href='/login'</script>";
+        
+
+    }
+
     //注册视图
     public function register()
     {
