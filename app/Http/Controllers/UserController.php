@@ -188,13 +188,11 @@ class UserController extends Controller
             $link = [
                 'url' => env('APP_URL') . '/resetpass?token=' . $token
             ];
-            Mail::send('email.findpass', $link, function ($message) {
+            Mail::send('email.findpass', $link, function ($message) use($uname) {
+            $user = UserModel::where(['user_name' => $uname])->orWhere(['email' => $uname])->orWhere(['tel' => $uname])->first();
                 //收件人数组
                 $to = [
-                    'zhang2877503663@163.com',
-                    '848332992@qq.com',
-                    '2281401451@qq.com',
-                    '3228682711@qq.com'
+                    $user['email']
                 ];
                 $message->to($to)->subject('重置密码');
             });
@@ -253,23 +251,19 @@ class UserController extends Controller
         FindpassModel::where(['token'=>$resetToken])->update(['status'=>1]);
 
 
-        $userInfo = FindPassModel::join('p_users','uid','=','p_users.id')->first();
+        $userInfo = FindPassModel::join('p_users','uid','=','p_users.id')->where(['token'=>$resetToken])->first()->toArray();
 
         $url = [
-            'user_name' => $userInfo->user_name,
+            'user_name' => $userInfo['user_name'],
             'time'      => date('Y-m-d h:i:s'),
-            'ip'        => $userInfo->id
+            'ip'        => $_SERVER['REMOTE_ADDR'],
         ];
-        Mail::send('email.resetpass', $url, function ($message) {
+        Mail::send('email.resetpass', $url, function ($message) use($userInfo) {
             $to = [
-                'zhang2877503663@163.com',
-                '848332992@qq.com',
-                '2281401451@qq.com',
-                '3228682711@qq.com'
+                $userInfo['email']
             ];
 
             $message->to($to)->subject("密码重置成功");
-
         });
         echo "<script>alert('密码重置成功,邮件已发送至您的邮箱请注意查收');location.href='/login';</script>";
 
