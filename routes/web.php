@@ -31,13 +31,3 @@ Route::post('/findpass','UserController@findPass2');            //发送邮件
 
 Route::get('/resetpass','UserController@resetPass1');           //重置密码视图
 Route::post('/resetpass','UserController@resetPass2');          //重置密码
-
-
-Route::get('/changepass','UserController@vChangePass');         //修改密码 view
-Route::post('/changepass','UserController@changePass');         //修改密码
-
-
-//Route::prefix('/org')->group(function(){
-//    Route::any('/change_pass','OrgController@change_pass');  //注册页面
-//    Route::any('upd','OrgController@upd');  //注册方法
-//});

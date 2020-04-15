@@ -266,5 +266,6 @@ class UserController extends Controller
         });
         echo "<script>alert('密码重置成功,邮件已发送至您的邮箱请注意查收');location.href='/login';</script>";
     }
+
 }
 
