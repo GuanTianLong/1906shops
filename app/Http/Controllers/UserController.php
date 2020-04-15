@@ -19,7 +19,7 @@ class UserController extends Controller
 
         return view('user.login');
     }
-    
+
     /**
         *执行登录
      */
